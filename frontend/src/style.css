@@ -1,0 +1,22 @@
+body {
+  background: #f4f7fb;
+}
+
+.hero {
+  background: white;
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #e9ecef;
+}
