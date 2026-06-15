@@ -1,34 +1,38 @@
+import { Link } from 'react-router-dom';
+
 function Home() {
   return (
-    <div className="hero text-center">
-      <h1>Otonom Insurance Management System</h1>
-      <p className="lead mt-3">
-        Submit insurance quotation requests online and manage them through a simple admin panel.
-      </p>
+    <>
+      <section className="hero-card">
+        <div className="row align-items-center">
+          <div className="col-lg-7">
+            <h1 className="hero-title">Insurance Offer and Policy Management</h1>
+            <p className="hero-text">
+              Choose an insurance type, enter customer information, calculate a demo offer price and continue to policy creation.
+            </p>
 
-      <div className="row mt-4">
-        <div className="col-md-4">
-          <div className="card p-3">
-            <h5>Traffic Insurance</h5>
-            <p>Request traffic insurance quotations.</p>
+            <div className="mt-4">
+              <Link to="/insurance-types" className="primary-btn me-3">Choose Insurance Type</Link>
+              <Link to="/quote" className="outline-btn">Quick Offer</Link>
+            </div>
+          </div>
+
+          <div className="col-lg-5 mt-4 mt-lg-0">
+            <div className="row g-3">
+              <div className="col-6"><div className="stat-card"><div className="stat-number">1</div><div>Choose Type</div></div></div>
+              <div className="col-6"><div className="stat-card"><div className="stat-number">2</div><div>Get Offer</div></div></div>
+              <div className="col-6"><div className="stat-card"><div className="stat-number">3</div><div>Accept Offer</div></div></div>
+              <div className="col-6"><div className="stat-card"><div className="stat-number">4</div><div>Create Policy</div></div></div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="col-md-4">
-          <div className="card p-3">
-            <h5>Health Insurance</h5>
-            <p>Submit health insurance requests.</p>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="card p-3">
-            <h5>Home Insurance</h5>
-            <p>Manage home insurance applications.</p>
-          </div>
-        </div>
+      <div className="ai-widget">
+        <strong>AI Assistant</strong><br/>
+        Ask about quotation and policy process.
       </div>
-    </div>
+    </>
   );
 }
 

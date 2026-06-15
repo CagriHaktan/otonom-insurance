@@ -5,6 +5,18 @@ const { users } = require('../config/dataStore');
 
 const router = express.Router();
 
+router.get('/users', (req, res) => {
+  const safeUsers = users.map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    createdAt: user.createdAt
+  }));
+
+  res.json(safeUsers);
+});
+
 router.post('/register', (req, res) => {
   const { name, email, password } = req.body;
 
@@ -23,18 +35,20 @@ router.post('/register', (req, res) => {
     name,
     email,
     password: bcrypt.hashSync(password, 10),
-    role: 'customer'
+    role: 'customer',
+    createdAt: new Date().toISOString().slice(0, 10)
   };
 
   users.push(newUser);
 
   res.status(201).json({
-    message: 'User registered successfully.',
+    message: 'Customer registered successfully.',
     user: {
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
-      role: newUser.role
+      role: newUser.role,
+      createdAt: newUser.createdAt
     }
   });
 });
@@ -67,7 +81,8 @@ router.post('/login', (req, res) => {
       id: user.id,
       name: user.name,
       email: user.email,
-      role: user.role
+      role: user.role,
+      createdAt: user.createdAt
     }
   });
 });

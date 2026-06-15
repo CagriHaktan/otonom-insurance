@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 function Login() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
 
@@ -10,33 +12,39 @@ function Login() {
 
     try {
       const response = await api.post('/auth/login', form);
+
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      setMessage(`Login successful. Welcome ${response.data.user.name}`);
+
+      if (response.data.user.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/customer');
+      }
     } catch (error) {
       setMessage(error.response?.data?.message || 'Login failed.');
     }
   };
 
   return (
-    <div className="card p-4">
-      <h2>Login</h2>
+    <div className="form-card">
+      <h2 className="section-title mb-2">Login</h2>
+      <p className="text-muted mb-4">
+        Please sign in with your account credentials.
+      </p>
 
-      <div className="alert alert-secondary">
-        Admin: admin@otonom.com / 123456<br />
-        Customer: customer@otonom.com / 123456
-      </div>
-
-      {message && <div className="alert alert-info">{message}</div>}
+      {message && <div className="alert alert-danger">{message}</div>}
 
       <form onSubmit={handleSubmit}>
-        <input className="form-control mb-3" placeholder="Email"
-          onChange={(e) => setForm({ ...form, email: e.target.value })} />
+        <label className="form-label">Email</label>
+        <input className="form-control mb-3" value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })} required />
 
-        <input className="form-control mb-3" placeholder="Password" type="password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })} />
+        <label className="form-label">Password</label>
+        <input type="password" className="form-control mb-4" value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })} required />
 
-        <button className="btn btn-primary">Login</button>
+        <button className="primary-btn w-100">Login</button>
       </form>
     </div>
   );
